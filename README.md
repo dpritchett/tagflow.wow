@@ -15,13 +15,41 @@ This proof of concept shows a way to cleanly separate release processes in a sem
 
 ### Pros
 
-**Resilience**: Smaller and simpler build steps mean fewer mistakes and accidental complexity in your CI code.
+#### Resilience
 
-**Minimal reliance on CI server API details**: Your supplemental tooling can see exactly which commits passed which build steps without having to ask Circle - just look at the git tags.
+Smaller and simpler build steps mean fewer mistakes and accidental complexity in your CI code. No more trying to save your entire workspace and pass it around from one CI step to twenty other downstream steps. That gets hairy in a hurry.
 
-**Platform-independent event-based control flow**: Using git tags to trigger follow-up build steps keeps control flow logic outside of the CircleCI config. This means you are less tied to Circle's way of doing things.
+#### Minimal reliance on CI server API details
 
-![Annotated CircleCI screenshot demonstrating the tag-based release flow](img/annotated-circle-list.png)
+Your supplemental tooling can see exactly which commits passed which build steps without having to ask Circle - just look at the git tags:
+
+```console
+# Find any tags named after commit 70ff6
+~/g/tagflow.wow (master |  👍  ) 🐠  git tag | grep 70ff6
+built-70ff6a6
+integ-tested-70ff6a6
+packaged-70ff6a6
+released-70ff6a6
+unit-tested-70ff6a6
+
+# find the five newest packaged builds
+~/g/tagflow.wow (master |  👍  ) 🐠
+git for-each-ref --sort=taggerdate --format '%(refname) %(taggerdate)' refs/tags | grep packaged- | sort -r | head -5
+refs/tags/packaged-eb44a3e Sun Jun 23 14:37:47 2019 +0000
+refs/tags/packaged-c938ec4 Sun Jun 23 14:52:44 2019 +0000
+refs/tags/packaged-c47181d Sun Jun 23 14:57:31 2019 +0000
+refs/tags/packaged-b447cb7 Sun Jun 23 15:02:39 2019 +0000
+refs/tags/packaged-ae11c68 Sun Jun 23 13:59:15 2019 +0000
+```
+
+#### Platform-independent event-based control flow
+
+Using git tags to trigger follow-up build steps keeps control flow logic outside of the CircleCI config. This means you are less tied to Circle's way of doing things. Requiring less Circle-specific knowledge means your techniques are more portable and the burden of training teammates on specific vendor tooling goes down.
+
+Git is free! You can use this same method on any CI server that supports tag-based triggers.
+
+[![Annotated CircleCI screenshot demonstrating the tag-based release flow](img/annotated-circle-list.png)](https://circleci.com/gh/dpritchett/tagflow.wow)
+_[Suddenly your continuous integration logs start to make a lot more sense.](https://circleci.com/gh/dpritchett/tagflow.wow)_
 
 
 ### Cons
@@ -67,6 +95,7 @@ workflows:
       - run:
           command: ./execute-step built
 ```
+[[Source](.circleci/config.yml)]
 
 ![screenshot of the passed build in CircleCI](img/passed-build-step.png)
 
@@ -96,8 +125,14 @@ workflows:
 ### 5. The `unit-test` workflow passes and pushes a new tag `unit-tested-00516cb` to source contorl
 
 ```console
+git tag -a "${verbed}-${SHA}" -m "${message}"
+git push origin --tags
+Counting objects: 1, done.
+Writing objects: 100% (1/1), 182 bytes | 0 bytes/s, done.
+Total 1 (delta 0), reused 0 (delta 0)
 To github.com:dpritchett/tagflow.wow.git
- * [new tag]         unit-tested-00516cb -> unit-tested-00516cb
+ * [new tag]         built-00516cb -> built-00516cb
  ```
+ [[Source](execute-step)]
  
 ### 6. This process continues all the way through `integ-test`, `package`, and finally `release` workflows
