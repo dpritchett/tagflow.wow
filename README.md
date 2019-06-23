@@ -11,7 +11,7 @@ _credit: [makeagif](https://makeagif.com/gif/fast-pinewood-derby-car-2008-scout-
 
 ## What is this and why would I want it?
 
-This proof of concept shows a way to cleanly separate release processes in a semantic way that relies as little as possible on the CI tool for control flow.
+This proof of concept shows a way to cleanly separate release processes in a semantic way that relies as little as possible on the details of a specific continuous integration platform for control flow. Using `git` tags, you'll achieve far cleaner and more manageable results.
 
 ### Pros
 
