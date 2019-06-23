@@ -1,4 +1,22 @@
 #!/bin/bash
+
+##############################################################################
+#
+#  execute-step
+#
+#  - executes a fake release step by name
+#    - example: "built"
+#  - narrates its execution to STDOUT
+#  - adds a unique git tag based on the commit hash to commemorate
+#      the passing of its step
+#    - example: built-0afe578
+#  - pushes that tag to the git origin in order to trigger follow-up
+#      release workflows that are watching for matching tags
+#    - example: /^built-.*/
+#
+#
+##############################################################################
+
 set -eo pipefail
 set -v
 
@@ -6,6 +24,8 @@ SHA=$(git rev-parse HEAD | cut -c1-7)
 
 verbed=$1
 message="Success! ${verbed} commit ${SHA}."
+
+echo "${message}"
 
 git tag -a "${verbed}-${SHA}" -m "${message}"
 git push origin --tags
