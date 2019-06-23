@@ -122,7 +122,7 @@ workflows:
               ignore: /.*/
 ```
 
-### 5. The `unit-test` workflow passes and pushes a new tag `unit-tested-00516cb` to source contorl
+### 5. The `unit-test` workflow passes and pushes a new tag `unit-tested-00516cb` to source control
 
 ```console
 git tag -a "${verbed}-${SHA}" -m "${message}"
