@@ -3,7 +3,7 @@ version: 2
 reusables:
   docker-python: &docker-python
     docker:
-      - image: circleci/python:3.6.8
+      - image: circleci/python:3.6
   can-push: &can-push
     - add_ssh_keys:
         fingerprint: "7b:fa:02:f5:bc:d3:7c:d5:da:de:c3:9e:ef:56:37:12	"
