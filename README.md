@@ -1,4 +1,4 @@
-# Level up your build and release workflow using git tags to trigger CI steps
+# Level Up Your Build and Release Workflow Using git Tags to Trigger CI steps
 [![CircleCI badge](https://circleci.com/gh/dpritchett/tagflow.wow.svg?style=svg)](https://circleci.com/gh/dpritchett/tagflow.wow)
 
 [👀 See the CircleCI logs for yourself!](https://circleci.com/gh/dpritchett/tagflow.wow)
