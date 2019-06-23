@@ -1,0 +1,76 @@
+version: 2
+
+reusables:
+  docker-python: &docker-python
+    docker:
+      - image: circleci/python:3.6.8
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build
+  unit-test:
+    jobs:
+      - unit-test:
+          filters:
+            tags:
+              only: /^built-.*/
+            branches:
+              ignore: /.*/
+  integ-test:
+    jobs:
+      - integ-test:
+          filters:
+            tags:
+              only: /^unit-tested-.*/
+            branches:
+              ignore: /.*/
+  package:
+    jobs:
+      - package:
+          filters:
+            tags:
+              only: /^integ-tested-.*/
+            branches:
+              ignore: /.*/
+  release:
+    jobs:
+      - release:
+          filters:
+            tags:
+              only: /^packaged-.*/
+            branches:
+              ignore: /.*/
+
+jobs:
+  build:
+    <<: *docker-python
+    steps:
+      - checkout
+      - run:
+          command: ./execute-step built
+  unit-test:
+    <<: *docker-python
+    steps:
+      - checkout
+      - run:
+          command: ./execute-step unit-tested
+  integ-test:
+    <<: *docker-python
+    steps:
+      - checkout
+      - run:
+          command: ./execute-step integ-tested
+  package:
+    <<: *docker-python
+    steps:
+      - checkout
+      - run:
+          command: ./execute-step packaged
+  release:
+    <<: *docker-python
+    steps:
+      - checkout
+      - run:
+          command: ./execute-step released

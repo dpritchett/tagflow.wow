@@ -1,0 +1,11 @@
+#!/bin/bash
+set -eo pipefail
+set -v
+
+SHA=$(git rev-parse HEAD | cut -c1-7)
+
+verbed=$1
+message="Success! ${verbed} commit ${SHA}."
+
+git tag -a "${verbed}-${SHA}" -m "${message}"
+git push origin --tags

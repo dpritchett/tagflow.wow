@@ -1,0 +1,13 @@
+#!/bin/bash
+set -eo pipefail
+set -v
+
+
+doomed_tag=$1
+
+message="Destroying git tag ${doomed_tag} locally..."
+git tag -d "${doomed_tag}"
+
+remote_name=origin
+message="Destroying git tag ${doomed_tag} at ${remote_name}..."
+git push --delete "${remote_name}" "${doomed_tag}"
