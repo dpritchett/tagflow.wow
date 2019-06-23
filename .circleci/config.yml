@@ -6,7 +6,7 @@ reusables:
       - image: circleci/python:3.6
   can-push: &can-push
     - add_ssh_keys:
-        fingerprint: "7b:fa:02:f5:bc:d3:7c:d5:da:de:c3:9e:ef:56:37:12	"
+        fingerprint: "4c:d0:d9:0d:96:b9:75:d9:eb:d9:0a:d3:8b:a5:49:f6"
 
 workflows:
   version: 2
