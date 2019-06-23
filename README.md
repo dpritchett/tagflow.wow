@@ -1,12 +1,25 @@
-# Decoupled build and release workflows using git tags as an event stream
+# Level up your build and release workflow using git tags to trigger CI steps
+
+See the CircleCI logs for yourself: [![CircleCI](https://circleci.com/gh/dpritchett/tagflow.wow.svg?style=svg)](https://circleci.com/gh/dpritchett/tagflow.wow)
 
 ![Annotated CircleCI screenshot demonstrating the tag-based release flow](img/annotated-circle-list.png)
 
-## What's this do?
+## What is this and why would I want it?
+
+![GIF of a pinewood derby](img/pinewood-derby.gif)
+_image credit [makeagif](https://makeagif.com/gif/fast-pinewood-derby-car-2008-scout-race-P13Xdv)_
 
 This proof of concept shows a way to cleanly separate release processes in a semantic way that relies as little as possible on the CI tool for control flow.
 
-## Walkthrough
+**Pros**
+- Smaller and simpler build steps mean more resilient CI code:
+- External tooling can see exactly which commits passed which build steps without having to know how to use Circle
+- Using git tags to trigger follow-up build steps keeps control flow logic outside of the CircleCI config. This means you are less tied to Circle's way of doing things.
+
+**Cons**
+- I haven't found them yet — please [open a GitHub issue here when you do](https://github.com/dpritchett/tagflow.wow/issues)!
+
+## Tell me how it works!
 
 ### 1. User pushes a new commit `00516cb` to source control
 
@@ -45,6 +58,9 @@ workflows:
       - run:
           command: ./execute-step built
 ```
+
+![screenshot of the passed build in CircleCI](img/passed-build-step.png)
+
 
 ### 3. `build` passes and pushes a new tag `built-00516cb` for this commit to source control
 
