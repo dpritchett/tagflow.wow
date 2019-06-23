@@ -5,7 +5,8 @@ reusables:
     docker:
       - image: circleci/python:3.6.8
   can-push: &can-push
-    - add_ssh_keys
+    - add_ssh_keys:
+        fingerprint: "7b:fa:02:f5:bc:d3:7c:d5:da:de:c3:9e:ef:56:37:12	"
 
 workflows:
   version: 2
