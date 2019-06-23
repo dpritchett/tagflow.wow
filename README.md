@@ -1,3 +1,7 @@
+# Decoupled build and release workflows using git tags as an event stream
+
+![Annotated CircleCI screenshot demonstrating the tag-based release flow](img/annotated-circle-list.png)
+
 Circle can trigger workflows on the creation of tags matching specified patterns. 
 
 For instance:
