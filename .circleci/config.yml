@@ -64,7 +64,7 @@ jobs:
   integ-test:
     <<: *docker-python
     steps:
-      - << *can-push
+      - <<: *can-push
       - checkout
       - run:
           command: ./execute-step integ-tested
