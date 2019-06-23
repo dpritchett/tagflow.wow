@@ -4,6 +4,8 @@ reusables:
   docker-python: &docker-python
     docker:
       - image: circleci/python:3.6.8
+  can-push: &can-push
+    - add_ssh_keys
 
 workflows:
   version: 2
@@ -47,30 +49,35 @@ jobs:
   build:
     <<: *docker-python
     steps:
+      - <<: *can-push
       - checkout
       - run:
           command: ./execute-step built
   unit-test:
     <<: *docker-python
     steps:
+      - <<: *can-push
       - checkout
       - run:
           command: ./execute-step unit-tested
   integ-test:
     <<: *docker-python
     steps:
+      - << *can-push
       - checkout
       - run:
           command: ./execute-step integ-tested
   package:
     <<: *docker-python
     steps:
+      - <<: *can-push
       - checkout
       - run:
           command: ./execute-step packaged
   release:
     <<: *docker-python
     steps:
+      - <<: *can-push
       - checkout
       - run:
           command: ./execute-step released
