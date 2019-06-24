@@ -106,7 +106,7 @@ workflows:
 ```console
 To github.com:dpritchett/tagflow.wow.git
  * [new tag]         built-ae11c68 -> built-ae11c68
- ```
+```
  
 ### 4. CircleCI detects the new `built-00516cb` tag and triggers a `unit-test` workflow on `00516cb`
 
