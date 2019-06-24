@@ -54,7 +54,7 @@ _[Suddenly your continuous integration logs start to make a lot more sense.](htt
 
 ### Cons
 
-I haven't found them yet — please [open a GitHub issue here when you do](https://github.com/dpritchett/tagflow.wow/issues)!
+It's.. _different_, so you'll probably confuse people who are more used to the imperative style of pipelining builds using a series of feature branches.
 
 ## Tell me how it works!
 
