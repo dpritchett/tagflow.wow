@@ -95,6 +95,7 @@ workflows:
       - run:
           command: ./execute-step built
 ```
+
 [[Source](.circleci/config.yml)]
 
 ![screenshot of the passed build in CircleCI](img/passed-build-step.png)
@@ -132,7 +133,8 @@ Writing objects: 100% (1/1), 182 bytes | 0 bytes/s, done.
 Total 1 (delta 0), reused 0 (delta 0)
 To github.com:dpritchett/tagflow.wow.git
  * [new tag]         built-00516cb -> built-00516cb
- ```
- [[Source](execute-step)]
+```
+
+[[Source](execute-step)]
  
 ### 6. This process continues all the way through `integ-test`, `package`, and finally `release` workflows
