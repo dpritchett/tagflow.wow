@@ -118,7 +118,7 @@ workflows:
           filters:
             tags:
               only: /^built-.*/
-            branches:
+            branches:  # ignore all branches or else this will fire immediately on every push
               ignore: /.*/
 ```
 
